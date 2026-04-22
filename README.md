@@ -1,11 +1,11 @@
 # discord-autoupdate
 
-Auto-atualização do Discord no Linux, usando os pacotes oficiais da distro — sem Flatpak, sem Snap, sem AUR helper.
+Atualiza o Discord sozinho no Linux, usando os pacotes oficiais da sua distro. Sem Flatpak, sem Snap, sem AUR helper.
 
-- **Debian / Ubuntu / derivados:** baixa o `.deb` oficial de `discord.com/api/download` e instala via `apt`.
-- **Arch / CachyOS / Manjaro / EndeavourOS:** atualiza o pacote oficial `extra/discord` via `pacman` (que é o mesmo binário oficial do Discord, só empacotado).
+- **Ubuntu / Debian / derivados:** baixa o `.deb` oficial do site do Discord e instala via `apt`.
+- **Arch / CachyOS / Manjaro / EndeavourOS:** atualiza o pacote `extra/discord` via `pacman` (é o mesmo binário oficial, só empacotado pra Arch).
 
-Roda como um `systemd` timer: 5 min após o boot e depois 1x por dia. `Persistent=true` recupera execuções perdidas enquanto a máquina estava desligada.
+Funciona como um timer do systemd: roda 5 min depois do boot e depois 1x por dia. Se a máquina estava desligada na hora, ele recupera assim que liga.
 
 ## Instalação
 
@@ -21,18 +21,18 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now discord-autoupdate.timer
 ```
 
-## Verificação
+## Testando
 
 ```bash
-# rodar agora e ver o log
+# roda agora e mostra o log
 sudo systemctl start discord-autoupdate.service
 journalctl -u discord-autoupdate.service -n 20
 
-# próximo disparo agendado
+# próxima execução agendada
 systemctl list-timers discord-autoupdate.timer
 ```
 
-## Desinstalação
+## Desinstalar
 
 ```bash
 sudo systemctl disable --now discord-autoupdate.timer
@@ -41,11 +41,11 @@ sudo rm /usr/local/bin/discord-autoupdate.sh
 sudo systemctl daemon-reload
 ```
 
-## Observações
+## Avisos
 
-- O script precisa de root (instala pacote de sistema). O `systemd` já roda como root por padrão.
-- No Arch, se você usa versões não-oficiais (`discord_arch_electron`, PTB, Canary via AUR), este script **não** cobre — AUR precisa de helper tipo `yay`/`paru` rodando como usuário normal.
-- Requer `curl` (Debian/Ubuntu) ou `pacman` (Arch).
+- Precisa de root pra instalar pacote do sistema — o systemd já cuida disso.
+- No Arch, versões PTB, Canary ou `discord_arch_electron` do AUR **não** são cobertas. AUR precisa de helper (`yay`/`paru`) rodando como usuário normal.
+- Dependências: `curl` (Ubuntu) ou `pacman` (Arch).
 
 ## Licença
 

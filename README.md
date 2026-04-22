@@ -10,7 +10,7 @@ Roda como um `systemd` timer: 5 min após o boot e depois 1x por dia. `Persisten
 ## Instalação
 
 ```bash
-git clone https://github.com/<seu-user>/discord-autoupdate.git
+git clone https://github.com/lithhhh/discord-autoupdate.git
 cd discord-autoupdate
 
 sudo install -m 755 discord-autoupdate.sh       /usr/local/bin/
